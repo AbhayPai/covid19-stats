@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="author" content="Abhay Pai">
+  <meta name="theme-color" content="#317EFB">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="./favicon.ico" type="image/x-icon">
+  <meta name="keywords" content="covid19, covid-19, corona, cornavirus, virus, statistics, stats, worldwide">
+  <meta name="description" content="It provides stats of corona virus worldwide statistics">
+  <title>CoronaVirus Statistics | Abhay Pai</title>
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://momentjs.com/downloads/moment.js"></script>
+</head>
+<body>
+  <span>These Data is being collected from <a href="https://www.programmableweb.com/api/novelcovid-rest-api-v10" target="_blank">Programmable web</a>.</span>
+  <div id="chart"></div>
+  <div id="last-update"></div>
+  <script>
+  fetch('https://corona.lmao.ninja/all')
+    .then(res => {return res.json()})
+    .then(
+      data => {
+        drawChart(data);
+        showLastUpdate(data);
+      });
+
+  function drawChart(data) {
+    Highcharts.chart('chart', {
+      chart: {
+        type: 'column'
+      },
+      title: {
+        text: 'Corona Virus World Wide Statistics'
+      },
+      xAxis: {
+        categories: ['Cases']
+      },
+      yAxis: {
+        title: {
+          text: 'Number of Cases'
+        }
+      },
+      series: [
+        {
+          id: 'total',
+          name: 'Total',
+          data: [data.cases]
+        },
+        {
+          id: 'active',
+          name: 'Active',
+          data: [data.active]
+        },
+        {
+          id: 'recovered',
+          name: 'Recovered',
+          data: [data.recovered]
+        },
+        {
+          id: 'deceased',
+          name: 'Deceased',
+          data: [data.deaths]
+        },
+      ],
+      plotOptions: {
+        column: {
+          dataLabels: {
+            enabled: true,
+            inside: true,
+            style: {
+              textOutline: ''
+            },
+            formatter: function() {
+              return `${this.series.name} - ${Math.round(this.y).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
+            }
+          },
+          tooltip: {
+            useHTML: true,
+            headerFormat: '',
+            pointFormatter: function() {
+              return `<strong>${this.series.name} - ${Math.round(this.y).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</strong>`;
+            }
+          },
+        }
+      }
+    });
+  }
+
+  function showLastUpdate(data) {
+    document.querySelector('#last-update').innerHTML = `Last Update: <strong>${moment(data.updated).format("MMMM Do YYYY, h:mm:ss a")}</strong>.`
+  }
+  </script>
+</body>
+</html>
