@@ -85,7 +85,7 @@
             useHTML: true,
             headerFormat: null,
             pointFormatter: function() {
-              return `<strong>${this.series.name}`;
+              return `<strong>${this.series.name}</strong>`;
             }
           },
         }
@@ -105,9 +105,16 @@
                 stacking: "normal",
                 dataLabels: {
                   formatter: function() {
-                    return `${Math.round(this.y).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
+                    return `<strong>${Math.round(this.y).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</strong>`;
                   }
-                }
+                },
+                tooltip: {
+                  useHTML: true,
+                  headerFormat: null,
+                  pointFormatter: function() {
+                    return `<strong>${Math.round(this.y).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</strong>`;
+                  }
+                },
               }
             }
           }
