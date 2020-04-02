@@ -10,7 +10,7 @@
   <link rel="icon" href="./favicon.ico" type="image/x-icon">
   <meta name="keywords" content="covid19, covid-19, corona, cornavirus, virus, statistics, stats, worldwide">
   <meta name="description" content="Graph representatin of worldwide statistics on covid-19">
-  <title>CoronaVirus Statistics | Abhay Pai</title>
+  <title>CoronaVirus Global Statistics | Abhay Pai</title>
   <script src="https://code.highcharts.com/highcharts.js"></script>
   <script src="https://momentjs.com/downloads/moment.js"></script>
 </head>
@@ -25,7 +25,12 @@
       data => {
         drawChart(data);
         showLastUpdate(data);
-      });
+      })
+    .catch(
+      err => {
+        console.log('Error: Fetching data.');
+      }
+    );
 
   function drawChart(data) {
     Highcharts.chart('chart', {
@@ -33,7 +38,7 @@
         type: 'column'
       },
       title: {
-        text: 'Corona Virus World Wide Statistics'
+        text: 'Corona Virus Global Statistics'
       },
       xAxis: {
         categories: ['Cases']
@@ -42,6 +47,9 @@
         title: {
           text: 'Number of Cases'
         }
+      },
+      credits: {
+        enabled: false
       },
       legend: {
         verticalAlign: "top",
