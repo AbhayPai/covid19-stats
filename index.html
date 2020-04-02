@@ -43,6 +43,10 @@
           text: 'Number of Cases'
         }
       },
+      legend: {
+        verticalAlign: "top",
+        layout: "horizontal"
+      },
       series: [
         {
           id: 'total',
@@ -71,20 +75,43 @@
             enabled: true,
             inside: true,
             style: {
-              textOutline: ''
+              textOutline: null
             },
             formatter: function() {
-              return `${this.series.name} - ${Math.round(this.y).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
+              return `${Math.round(this.y).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
             }
           },
           tooltip: {
             useHTML: true,
-            headerFormat: '',
+            headerFormat: null,
             pointFormatter: function() {
-              return `<strong>${this.series.name} - ${Math.round(this.y).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</strong>`;
+              return `<strong>${this.series.name}`;
             }
           },
         }
+      },
+      responsive: {
+        rules: [{
+          condition: {
+            maxWidth: 420,
+            minWidth: 0
+          },
+          chartOptions: {
+            legend: {
+              layout: "vertical"
+            },
+            plotOptions: {
+              column: {
+                stacking: "normal",
+                dataLabels: {
+                  formatter: function() {
+                    return `${Math.round(this.y).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
+                  }
+                }
+              }
+            }
+          }
+        }],
       }
     });
   }
