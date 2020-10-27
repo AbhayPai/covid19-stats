@@ -13,6 +13,12 @@
   <title>CoronaVirus Global Statistics | Abhay Pai</title>
   <script src="https://code.highcharts.com/highcharts.js"></script>
   <script src="https://momentjs.com/downloads/moment.js"></script>
+  <style>
+    body {
+      margin: 0px;
+      min-width: 420px;
+    }
+  </style>
 </head>
 <body>
   <span>These Data is being collected from <a href="https://www.programmableweb.com/api/novelcovid-rest-api-v10" target="_blank">Programmable web</a>.</span>
@@ -62,14 +68,14 @@
           data: [data.cases]
         },
         {
-          id: 'active',
-          name: 'Active',
-          data: [data.active]
-        },
-        {
           id: 'recovered',
           name: 'Recovered',
           data: [data.recovered]
+        },
+        {
+          id: 'active',
+          name: 'Active',
+          data: [data.active]
         },
         {
           id: 'deceased',
@@ -101,7 +107,7 @@
       responsive: {
         rules: [{
           condition: {
-            maxWidth: 420,
+            maxWidth: 400,
             minWidth: 0
           },
           chartOptions: {
